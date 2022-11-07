@@ -147,28 +147,18 @@ public class Banca
 
     public int RateMancantiCliente(string codiceFiscale, Cliente cliente)
     {
-        int rateMancanti = 0; 
+        int rateMancanti = 0;
         List<Prestito> prestiti = RicercaPrestito(codiceFiscale);
         foreach (Prestito item in prestiti)
         {
             DateTime oggi = DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.Parse("10:00 PM"));
             DateTime fine = item.Fine.ToDateTime(TimeOnly.Parse("10:00 PM"));
-             rateMancanti = fine.Subtract(oggi).Days / 30;
-         
+            rateMancanti = fine.Subtract(oggi).Days / 30;
+
 
         }
-            return rateMancanti;
+        return rateMancanti;
 
-    }
-
-    public void StampaProspettoClienti()
-    {
-        //stampare per tutti i clienti
-    }
-
-    public void StampaProspettoPrestiti()
-    {
-        //stampa per tutti i prestiti
     }
 
     public void AggiungiPrestito(Prestito nuovoPrestito)
