@@ -79,14 +79,14 @@ if (sceltaUser == 1)
 else if (sceltaUser == 2)
 {
     Console.WriteLine("Inserisci il codice fiscale:");
-    string codiceFiscale = Console.ReadLine(); 
+    string codiceFiscale = Console.ReadLine();
     Console.WriteLine("Inserisci il nome:");
-    string nome = Console.ReadLine(); 
+    string nome = Console.ReadLine();
     Console.WriteLine("Inserisci il cognome:");
-    string cognome = Console.ReadLine(); 
+    string cognome = Console.ReadLine();
     Console.WriteLine("Inserisci lo stipendio:");
     int stipendio = Convert.ToInt32(Console.ReadLine());
-    bool aggiunta = intesa.AggiungiCliente( nome,  cognome,  codiceFiscale,  stipendio);
+    bool aggiunta = intesa.AggiungiCliente(nome, cognome, codiceFiscale, stipendio);
     if (aggiunta)
         Console.WriteLine("Utente inserito");
     else
@@ -95,19 +95,60 @@ else if (sceltaUser == 2)
 else if (sceltaUser == 3)
 {
 
-}else if (sceltaUser == 4)
+    Console.WriteLine("Inserisci il codice fiscale per la ricerca nel database:");
+    string codiceFiscale = Console.ReadLine();
+    Cliente cliente = intesa.RicercaCliente(codiceFiscale);
+    if (cliente == null)
+        Console.WriteLine("Utente non trovato");
+    else
+    {
+        Console.WriteLine("Ora ti chiederò tutti i dati del utente");
+        Console.WriteLine("Inserisci il nome:");
+        string nome = Console.ReadLine();
+        Console.WriteLine("Inserisci il cognome:");
+        string cognome = Console.ReadLine();
+        Console.WriteLine("Inserisci lo stipendio:");
+        int stipendio = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Inserisci il codice fiscale:");
+        string nuovoCF = Console.ReadLine();
+        Cliente modifica = intesa.ModificaCliente(nome, cognome, codiceFiscale, stipendio, nuovoCF);
+        if (modifica != null)
+            Console.WriteLine("Utente modificato per il codice fiscale: " + modifica.CodiceFiscale);
+        else
+            Console.WriteLine("Errore durante la modifica");
+    }
+}
+else if (sceltaUser == 4)
+{
+    Console.WriteLine("Inserisci il codice fiscale:");
+    string codiceFiscale = Console.ReadLine();
+    Cliente cliente = intesa.RicercaCliente(codiceFiscale);
+    if (cliente != null)
+    {
+        Console.WriteLine("Utente trovato");
+        Console.WriteLine("Nome: " + cliente.Nome);
+        Console.WriteLine("Cognome: " + cliente.Cognome);
+        Console.WriteLine("Stipendio: " + cliente.Stipendio);
+        Console.WriteLine("Codice fiscale: " + cliente.CodiceFiscale);
+
+    }
+    else
+        Console.WriteLine("Utente non trovato");
+
+}
+else if (sceltaUser == 5)
 {
 
-}else if (sceltaUser == 5)
+}
+else if (sceltaUser == 6)
 {
 
-}else if (sceltaUser == 6)
+}
+else if (sceltaUser == 7)
 {
 
-}else if (sceltaUser == 7)
-{
-
-}else
+}
+else
 {
     Console.WriteLine("Scelta errata");
 }

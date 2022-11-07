@@ -65,7 +65,7 @@ public class Banca
 
     //    return false;
     //}
-    public bool AggiungiCliente(string nome, string cognome, string codiceFiscale, int stipendio/*, int altezza*/)
+    public bool AggiungiCliente(string nome, string cognome, string codiceFiscale, int stipendio)
     {
 
         if (
@@ -105,22 +105,26 @@ public class Banca
     {
         Cliente cliente = RicercaCliente(codiceFiscale);
 
-        if (cliente == null)
+         if(cliente.CodiceFiscale != "")
         {
-            return null;
-        }
-        else
-        {
-            cliente.CodiceFiscale = nuovoCF;
+            if(codiceFiscale == nuovoCF)
+                cliente.CodiceFiscale = codiceFiscale;
+            else
+                cliente.CodiceFiscale = nuovoCF;
+
             cliente.Stipendio = stipendio;
             cliente.Nome = nome;
             cliente.Cognome = cognome;
 
             return cliente;
         }
-        
+        else
+        {
+            return null;
 
- 
+        }
+
+
     }
     public List<Prestito> RicercaPrestito(string codiceFiscale)
     {
