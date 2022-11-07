@@ -71,11 +71,18 @@ if (sceltaUser == 1)
 
         Console.WriteLine("Ammontare del prestito: ");
         int ammontarePrestito = Convert.ToInt32(Console.ReadLine());
+
         Console.WriteLine("Valore rata: ");
         int rataPrestito = Convert.ToInt32(Console.ReadLine());
-        Prestito nuovoPrestito = new Prestito(ammontarePrestito, rataPrestito, dateNow, new DateOnly(), clienteEsistente);
+
+        int rate = ammontarePrestito / rataPrestito;
+        Console.WriteLine("Numero rate: " + rate);
+        DateOnly finePrestito = dateNow.AddMonths(rate);
+        Prestito nuovoPrestito = new Prestito(ammontarePrestito, rataPrestito, dateNow, finePrestito, clienteEsistente);
 
         intesa.AggiungiPrestito(nuovoPrestito);
+        Cliente cliente = intesa.RicercaCliente(codiceFiscale);
+       
     }
 }
 else if (sceltaUser == 2)
@@ -140,7 +147,11 @@ else if (sceltaUser == 4)
 }
 else if (sceltaUser == 5)
 {
-    var dateNow = DateOnly.FromDateTime(DateTime.Now);
+    Console.WriteLine("Inserisci il codice fiscale:");
+    string codiceFiscale = Console.ReadLine();
+    Cliente cliente = intesa.RicercaCliente(codiceFiscale);
+
+    Console.WriteLine(Convert.ToInt32(intesa.RateMancantiCliente(codiceFiscale, cliente)));
 
 
 }

@@ -49,30 +49,18 @@ public class Banca
         Cliente Cliente2 = new Cliente("Giulio", "Verdi", "GLIVRD4235263755", 1800);
         Clienti.Add(Cliente1);
         Clienti.Add(Cliente2);
+
         var dateNow = DateOnly.FromDateTime(DateTime.Now);
-        Prestito Prestito1 = new Prestito(20000, 500, dateNow, Cliente1);
-        Prestito Prestito2 = new Prestito(30000, 400, dateNow, Cliente2);
-        Prestito Prestito3 = new Prestito(20000, 600, dateNow, Cliente1);
+        Prestito Prestito1 = new Prestito(20000, 1, dateNow, Cliente1);
+        Prestito Prestito2 = new Prestito(30000, 10, dateNow, Cliente2);
+        Prestito Prestito3 = new Prestito(20000, 1, dateNow, Cliente1);
         Prestiti.Add(Prestito3);
         Prestiti.Add(Prestito2);
         Prestiti.Add(Prestito1);
 
     }
 
-    //    public bool AggiungiCliente(Cliente cliente)
-    //{
-    //    //if (
-    //    //   cliente.Nome == null || cliente.Nome == "" ||
-    //    //   cliente.Cognome == null || cliente.Cognome == "" ||
-    //    //   codiceFiscale == null || codiceFiscale == "" ||
-    //    //   stipendio < 0
-    //    //   )
-    //    //{
-    //    //    return false;
-    //    //}
 
-    //    return false;
-    //}
     public bool AggiungiCliente(string nome, string cognome, string codiceFiscale, int stipendio)
     {
 
@@ -145,7 +133,7 @@ public class Banca
                 trovati.Add(item);
             }
         }
-                return trovati;
+        return trovati;
 
     }
 
@@ -157,13 +145,20 @@ public class Banca
         return prestitiUtente.Count;
     }
 
-    public int RateMancantiCliente(string codiceFiscale)
+    public int RateMancantiCliente(string codiceFiscale, Cliente cliente)
     {
-        int rateMancanti = 0; //metterò il conteggio
+        int rateMancanti = 0; 
+        List<Prestito> prestiti = RicercaPrestito(codiceFiscale);
+        foreach (Prestito item in prestiti)
+        {
+            DateTime oggi = DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.Parse("10:00 PM"));
+            DateTime fine = item.Fine.ToDateTime(TimeOnly.Parse("10:00 PM"));
+             rateMancanti = fine.Subtract(oggi).Days / 30;
+         
 
-        //conteggio...
+        }
+            return rateMancanti;
 
-        return rateMancanti;
     }
 
     public void StampaProspettoClienti()
@@ -184,7 +179,3 @@ public class Banca
 
 }
 
-//DateTime inizioMod = inizio.ToDateTime(TimeOnly.Parse("10:00 PM"));
-//DateTime fineMod = fine.ToDateTime(TimeOnly.Parse("10:00 PM"));
-//if (cliente.Stipendio / 2 < ammontare / (fineMod.Subtract(inizioMod).Days / 30))
-//    return false;
