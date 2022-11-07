@@ -39,9 +39,9 @@ public class Prestito
     private int ammontarePrestito;
 
     //prestito in partenza dalla data specificata
-    public Prestito(int iD, int ammontare, int valoreRata, DateOnly inizio, DateOnly fine, Cliente intestatario)
+    public Prestito( int ammontare, int valoreRata, DateOnly inizio, DateOnly fine, Cliente intestatario)
     {
-        ID = iD;
+        ID += 1;
         Ammontare = ammontare;
         ValoreRata = valoreRata;
         Inizio = inizio;
@@ -50,9 +50,9 @@ public class Prestito
     }
 
     //un prestito in data di oggi
-    public Prestito(int iD, int ammontare, int valoreRata, DateOnly fine, Cliente intestatario)
+    public Prestito( int ammontare, int valoreRata, DateOnly fine, Cliente intestatario)
     {
-        ID = iD;
+        ID += 1;
         Ammontare = ammontare;
         ValoreRata = valoreRata;
         //data di oggi
@@ -63,7 +63,7 @@ public class Prestito
 
 
 
-    public int ID { get; set; }
+    public static int ID = 0; 
     public int Ammontare { get; set; }
 
     public int ValoreRata { get; set; }
@@ -76,7 +76,9 @@ public class Prestito
 
     public override string ToString()
     {
-        return "Prestito concesso con una rata da " + ValoreRata + " Euro al mese.";
+        string stringa = "Prestito da " + Ammontare + " concesso con una rata da " + ValoreRata + " Euro al mese. All'utente " + Intestatario.Nome + " " + Intestatario.Cognome + ". Il prestito è iniziato il " + Inizio + " e finirà il " + Fine;
+        return stringa;
     }
 
+    
 }

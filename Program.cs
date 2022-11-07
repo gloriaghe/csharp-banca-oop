@@ -1,4 +1,6 @@
-﻿//Oggi cerchiamo di migliorare un pochino l’approccio nella costruzione di un codice ad oggetti, ben suddiviso tra diverse responsabilità. Il program.cs si occuperà quindi di gestire tutti i console.writeline/readline mentre le classi di dominio del nostro progetto devono occuparsi solo della logica applicativa e fare dei controlli dei dati quando questi violano qualche logica.
+﻿//Oggi cerchiamo di migliorare un pochino l’approccio nella costruzione di un codice ad oggetti, ben suddiviso tra diverse responsabilità. Il program.cs si occuperà
+//quindi di gestire tutti i console.writeline/readline mentre le classi di dominio del nostro progetto devono occuparsi solo della logica applicativa
+//e fare dei controlli dei dati quando questi violano qualche logica.
 //Esempio, quando un cliente non può chiedere più prestiti? quale entità potrebbe occuparsi di questo controllo?
 //Non dimentichiamoci però che abbiamo aggiunto la keyword static, quale parametro di quale entità potrebbe essere trasformato in STATIC così come abbiamo visto negli esempi?
 //Consegna:
@@ -71,7 +73,7 @@ if (sceltaUser == 1)
         int ammontarePrestito = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Valore rata: ");
         int rataPrestito = Convert.ToInt32(Console.ReadLine());
-        Prestito nuovoPrestito = new Prestito(0, ammontarePrestito, rataPrestito, dateNow, new DateOnly(), clienteEsistente);
+        Prestito nuovoPrestito = new Prestito(ammontarePrestito, rataPrestito, dateNow, new DateOnly(), clienteEsistente);
 
         intesa.AggiungiPrestito(nuovoPrestito);
     }
@@ -130,7 +132,7 @@ else if (sceltaUser == 4)
         Console.WriteLine("Cognome: " + cliente.Cognome);
         Console.WriteLine("Stipendio: " + cliente.Stipendio);
         Console.WriteLine("Codice fiscale: " + cliente.CodiceFiscale);
-
+        Console.WriteLine("Prestiti richiesti: " + intesa.AmmontareTotalePrestitiCliente(codiceFiscale));
     }
     else
         Console.WriteLine("Utente non trovato");
@@ -138,15 +140,34 @@ else if (sceltaUser == 4)
 }
 else if (sceltaUser == 5)
 {
+    var dateNow = DateOnly.FromDateTime(DateTime.Now);
+
 
 }
 else if (sceltaUser == 6)
 {
-
+    Console.WriteLine("Inserisci il codice fiscale:");
+    string codiceFiscale = Console.ReadLine();
+    Cliente cliente = intesa.RicercaCliente(codiceFiscale);
+    if (cliente != null)
+    {
+        Console.WriteLine("{0}",cliente, cliente.GetType().ToString());
+    }
 }
 else if (sceltaUser == 7)
 {
+    Console.WriteLine("Inserisci il codice fiscale dell'utente di cui cercare i prestiti:");
+    string codiceFiscale = Console.ReadLine();
+    List<Prestito> prestito = intesa.RicercaPrestito(codiceFiscale);
 
+    if (prestito != null)
+    {
+        foreach (Prestito item in prestito)
+        {
+        Console.WriteLine("{0}", item, item.GetType().ToString());
+
+        }
+    }
 }
 else
 {

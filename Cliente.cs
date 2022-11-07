@@ -51,4 +51,9 @@ public class Cliente
         CodiceFiscale = codiceFiscale;
         Stipendio = stipendio;
     }
+
+    public override string ToString()
+    {
+        return "Utente trovato: "+ Nome +" "+  Cognome + "Codice fiscale: " + CodiceFiscale + "Stipendio: " + Stipendio;
+    }
 }

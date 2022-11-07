@@ -49,6 +49,14 @@ public class Banca
         Cliente Cliente2 = new Cliente("Giulio", "Verdi", "GLIVRD4235263755", 1800);
         Clienti.Add(Cliente1);
         Clienti.Add(Cliente2);
+        var dateNow = DateOnly.FromDateTime(DateTime.Now);
+        Prestito Prestito1 = new Prestito(20000, 500, dateNow, Cliente1);
+        Prestito Prestito2 = new Prestito(30000, 400, dateNow, Cliente2);
+        Prestito Prestito3 = new Prestito(20000, 600, dateNow, Cliente1);
+        Prestiti.Add(Prestito3);
+        Prestiti.Add(Prestito2);
+        Prestiti.Add(Prestito1);
+
     }
 
     //    public bool AggiungiCliente(Cliente cliente)
@@ -105,9 +113,9 @@ public class Banca
     {
         Cliente cliente = RicercaCliente(codiceFiscale);
 
-         if(cliente.CodiceFiscale != "")
+        if (cliente.CodiceFiscale != "")
         {
-            if(codiceFiscale == nuovoCF)
+            if (codiceFiscale == nuovoCF)
                 cliente.CodiceFiscale = codiceFiscale;
             else
                 cliente.CodiceFiscale = nuovoCF;
@@ -130,18 +138,23 @@ public class Banca
     {
         List<Prestito> trovati = new List<Prestito>();
 
+        foreach (Prestito item in Prestiti)
+        {
+            if (item.Intestatario.CodiceFiscale == codiceFiscale)
+            {
+                trovati.Add(item);
+            }
+        }
+                return trovati;
 
-
-        return trovati;
     }
 
     public int AmmontareTotalePrestitiCliente(string codiceFiscale)
     {
-        int ammontare = 0; //metterò il conteggio
 
-        //conteggio...
+        List<Prestito> prestitiUtente = RicercaPrestito(codiceFiscale);
 
-        return ammontare;
+        return prestitiUtente.Count;
     }
 
     public int RateMancantiCliente(string codiceFiscale)
@@ -166,7 +179,12 @@ public class Banca
     public void AggiungiPrestito(Prestito nuovoPrestito)
     {
         Prestiti.Add(nuovoPrestito);
-         Console.WriteLine("{1}: {0}", nuovoPrestito, nuovoPrestito.GetType().ToString());
+        Console.WriteLine("{1}: {0}", nuovoPrestito, nuovoPrestito.GetType().ToString());
     }
-    
+
 }
+
+//DateTime inizioMod = inizio.ToDateTime(TimeOnly.Parse("10:00 PM"));
+//DateTime fineMod = fine.ToDateTime(TimeOnly.Parse("10:00 PM"));
+//if (cliente.Stipendio / 2 < ammontare / (fineMod.Subtract(inizioMod).Days / 30))
+//    return false;
