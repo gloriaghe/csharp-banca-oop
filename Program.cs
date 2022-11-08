@@ -51,6 +51,7 @@ Console.WriteLine("Premi 7 per stampare un prospetto riassuntivo di un prestito"
 
 
 int sceltaUser = Convert.ToInt32(Console.ReadLine());
+
 if (sceltaUser == 1)
 {
 
@@ -82,7 +83,7 @@ if (sceltaUser == 1)
 
         intesa.AggiungiPrestito(nuovoPrestito);
         Cliente cliente = intesa.RicercaCliente(codiceFiscale);
-       
+
     }
 }
 else if (sceltaUser == 2)
@@ -149,9 +150,14 @@ else if (sceltaUser == 5)
 {
     Console.WriteLine("Inserisci il codice fiscale:");
     string codiceFiscale = Console.ReadLine();
-    Cliente cliente = intesa.RicercaCliente(codiceFiscale);
+    //Cliente cliente = intesa.RicercaCliente(codiceFiscale);
+    List<Prestito> prestiti = intesa.RicercaPrestito(codiceFiscale);
+    foreach (Prestito item in prestiti)
+    {
+        Console.WriteLine("{0}", item.ToString());
 
-    Console.WriteLine(Convert.ToInt32(intesa.RateMancantiCliente(codiceFiscale, cliente)));
+    }
+    //Console.WriteLine(Convert.ToInt32(intesa.RateMancantiCliente(codiceFiscale)));
 
 
 }
@@ -162,7 +168,7 @@ else if (sceltaUser == 6)
     Cliente cliente = intesa.RicercaCliente(codiceFiscale);
     if (cliente != null)
     {
-        Console.WriteLine("{0}",cliente, cliente.GetType().ToString());
+        Console.WriteLine("{0}", cliente);
     }
 }
 else if (sceltaUser == 7)
@@ -175,7 +181,7 @@ else if (sceltaUser == 7)
     {
         foreach (Prestito item in prestito)
         {
-        Console.WriteLine("{0}", item, item.GetType().ToString());
+            Console.WriteLine("{0}", item);
 
         }
     }

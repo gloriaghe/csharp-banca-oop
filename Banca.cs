@@ -145,7 +145,7 @@ public class Banca
         return prestitiUtente.Count;
     }
 
-    public int RateMancantiCliente(string codiceFiscale, Cliente cliente)
+    public int RateMancantiCliente(string codiceFiscale)
     {
         int rateMancanti = 0;
         List<Prestito> prestiti = RicercaPrestito(codiceFiscale);
@@ -155,7 +155,7 @@ public class Banca
             DateTime fine = item.Fine.ToDateTime(TimeOnly.Parse("10:00 PM"));
             rateMancanti = fine.Subtract(oggi).Days / 30;
 
-
+            item.RateMancanti();
         }
         return rateMancanti;
 

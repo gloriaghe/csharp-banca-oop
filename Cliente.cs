@@ -54,6 +54,6 @@ public class Cliente
 
     public override string ToString()
     {
-        return "Utente trovato: "+ Nome +" "+  Cognome + "Codice fiscale: " + CodiceFiscale + "Stipendio: " + Stipendio;
+        return "Utente: "+ Nome +" "+  Cognome + "Codice fiscale: " + CodiceFiscale + "Stipendio: " + Stipendio;
     }
 }

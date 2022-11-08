@@ -76,9 +76,21 @@ public class Prestito
 
     public override string ToString()
     {
-        string stringa = "Prestito da " + Ammontare + " concesso con una rata da " + ValoreRata + " Euro al mese. All'utente " + Intestatario.Nome + " " + Intestatario.Cognome + ". Il prestito è iniziato il " + Inizio + " e finirà il " + Fine;
+        string stringa = "Prestito da " + Ammontare + 
+            " concesso con una rata da " + ValoreRata +
+            " Euro al mese. All'utente " + Intestatario.Nome +
+            " " + Intestatario.Cognome +
+            ". Il prestito è iniziato il " + 
+            Inizio + " e finirà il " + Fine +
+            " Rate mancanti: " + RateMancanti()
+            ;
         return stringa;
     }
 
-    
+    public int RateMancanti()
+    {
+        DateTime oggi = DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.Parse("10:00 PM"));
+        DateTime fine = this.Fine.ToDateTime(TimeOnly.Parse("10:00 PM"));
+        return fine.Subtract(oggi).Days / 30;
+    }
 }
